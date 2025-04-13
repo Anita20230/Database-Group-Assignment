@@ -161,6 +161,34 @@ INSERT INTO book_language (language_id, language_name) VALUES
 (9, 'Luhya'),
 (10, 'Kalenjin');
 
+-- KENYAN ORDER DATA
+INSERT INTO shipping_method VALUES 
+(1, 'Posta Kenya', 120.00),
+(2, 'G4S Courier', 250.00),
+(3, 'Sendy', 180.00);
+
+INSERT INTO order_status VALUES 
+(1, 'Pending'),
+(2, 'Shipped'),
+(3, 'Delivered');
+
+-- Kenyan customers placing orders
+INSERT INTO cust_order (order_id, customer_id, shipping_method_id) VALUES 
+(5001, 10006, 1),  -- Wanjiru Kamau (Nairobi)
+(5002, 10007, 3);  -- Omondi Otieno (Nairobi)
+
+-- Ordered books (including Kenyan titles)
+INSERT INTO order_line VALUES 
+(1, 5001, 1006, 1), -- The River and the Source
+(2, 5001, 1001, 2), -- Atomic Habits (2 copies)
+(3, 5002, 1003, 1); -- Wizard of the Crow
+
+-- Order status history
+INSERT INTO order_history VALUES 
+(1, 5001, 1, '2023-08-01 10:00:00'),
+(2, 5001, 2, '2023-08-03 14:30:00'),
+(3, 5002, 1, '2023-08-05 09:15:00');
+
 -- Verification Query for Kenyan Data
 SELECT 'Kenyan data loaded successfully!' AS message;
 

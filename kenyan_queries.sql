@@ -45,4 +45,19 @@ JOIN book b ON ol.book_id = b.book_id
 JOIN shipping_method sm ON co.shipping_method_id = sm.method_id
 WHERE c.customer_id BETWEEN 10006 AND 10010;  -- Kenyan customer IDs
 
+-- View all Kenyan customer orders
+SELECT 
+    c.first_name, c.last_name,
+    b.title, ol.quantity,
+    sm.method_name AS shipping_method,
+    os.status_value AS status
+FROM cust_order co
+JOIN customer c ON co.customer_id = c.customer_id
+JOIN order_line ol ON co.order_id = ol.order_id
+JOIN book b ON ol.book_id = b.book_id
+JOIN shipping_method sm ON co.shipping_method_id = sm.method_id
+JOIN order_history oh ON co.order_id = oh.order_id
+JOIN order_status os ON oh.status_id = os.status_id
+WHERE c.customer_id BETWEEN 10006 AND 10010;
+
 

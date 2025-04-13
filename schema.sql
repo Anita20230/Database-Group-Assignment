@@ -80,3 +80,41 @@ CREATE TABLE IF NOT EXISTS customer_address (
     FOREIGN KEY (status_id) REFERENCES address_status(status_id)
 );
 
+-- ORDER TABLES
+CREATE TABLE IF NOT EXISTS shipping_method (
+    method_id INT PRIMARY KEY AUTO_INCREMENT,
+    method_name VARCHAR(100) NOT NULL,
+    cost DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS order_status (
+    status_id INT PRIMARY KEY AUTO_INCREMENT,
+    status_value VARCHAR(20) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS cust_order (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    shipping_method_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(method_id)
+);
+
+CREATE TABLE IF NOT EXISTS order_line (
+    line_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    book_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
+    FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+
+CREATE TABLE IF NOT EXISTS order_history (
+    history_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    status_id INT NOT NULL,
+    status_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
+    FOREIGN KEY (status_id) REFERENCES order_status(status_id)
+);
