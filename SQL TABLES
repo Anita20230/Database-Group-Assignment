@@ -1,4 +1,4 @@
-CREATE DATABASE BookStore;
+CREATE DATABASE BookStoreDB;
 USE BookStore;
 
 CREATE TABLE book (
